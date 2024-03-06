@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видеопоток с веб-камеры</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #333;
+      font-family: Arial, sans-serif;
+    }
+
+    #video-container {
+      position: relative;
+    }
+
+    #video-stream {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .control-buttons {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 10px;
+      border-radius: 10px;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .control-buttons button {
+      padding: 5px 10px;
+      margin-right: 10px;
+      background-color: #0074D9;
+      color: #fff;
+      border: none;
+      border-radius: 5px;/
+      cursor: pointer;
+    }
+
+    #contrast-level, #zoom-level {
+        color: #0074D9;
+    }
+
+    .control-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .control-buttons span {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .control-buttons {
+        position: relative;
+        top: initial;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        flex-direction: column;
+        top: initial;
+        left: initial;
+        transform: none;
+      }
+
+      .control-buttons button {
+         width: 100%;
+         margin: 2px;
+      }
+    }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <img src="{{ url_for('video_feed') }}" style="max-width: 100%;" id="video-stream" />
+    </div>
+
+    <div class="control-buttons">
+        <button onclick="adjustContrast('+')">Увеличить контрастность</button>
+        <button onclick="adjustContrast('-')">Уменьшить контрастность</button>
+        <span id="contrast-level">Контрастность: 100%</span>
+        <button onclick="zoom('+')">Приблизить</button>
+        <button onclick="zoom('-')">Отдалить</button>
+        <span id="zoom-level">Приближение: 0</span>
+    </div>
+
+    <script>
+    let contrastLevel = 100;
+    let zoomLevel = 0;
+
+    function adjustContrast(action) {
+        if (action === '+') {
+            contrastLevel += 10;
+        } else if (action === '-') {
+            contrastLevel -= 10;
+        }
+
+        document.getElementById('video-stream').style.filter = `contrast(${contrastLevel}%)`;
+        document.getElementById('contrast-level').textContent = `Контрастность: ${contrastLevel}%`;
+    }
+
+    function zoom(action) {
+        if (action === '+') {
+            zoomLevel += 10;
+        } else if (action === '-') {
+            zoomLevel -= 10;
+        }
+
+        document.getElementById('video-stream').style.transform = `scale(${1 + zoomLevel / 100})`;
+        document.getElementById('zoom-level').textContent = `Приближение: ${zoomLevel}%`;
+    }
+    </script>
+</body>
+</html>
