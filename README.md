@@ -19,7 +19,7 @@ This repository contains a Python application for streaming video from a webcam 
 
     ```bash
     git clone https://github.com/MustBeAltF4/Video-Streaming-and-Notification-System.git
-    cd your-repository
+    cd Video-Streaming-and-Notification-System.git
     ```
 
 2. Install the required packages:
