@@ -35,7 +35,7 @@ This repository contains a Python application for streaming video from a webcam 
 5. Run the application:
 
     ```bash
-    python your_app_name.py
+    python main.py
     ```
 
 6. Access the video stream by visiting `http://localhost:2020` in your web browser.
